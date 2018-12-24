@@ -38,6 +38,68 @@ maxSubSum2( const std::vector<int> &a ){
 	return maxSum;
 }
 
+int max3(int a, int b, int c){
+	if(a > b){
+		if(a > c){
+			return a;
+		}
+		else
+			return c;
+	}else{
+		if(b > c){
+			return b;
+		}else
+			return c;
+	}
+}
+
+int MaxSumRec(const std::vector<int> &a,int left, int right){
+	if(left == right){  // Base case
+		if( a[left] > 0 ){
+			return a[left];
+		}
+		else{
+			return 0;
+		}
+	}
+	int center = (int)(( (float)left + (float)right ) / 2.0);
+	int maxLeftSum = MaxSumRec( a, left, center );
+	int maxRightSum = MaxSumRec ( a, center + 1, right);
+	int maxLeftBorderSum = 0, leftBorderSum = 0;
+	for(int i = center; i >= left; i--){
+		leftBorderSum += a[i];
+		if(leftBorderSum > maxLeftBorderSum)
+			maxLeftBorderSum = leftBorderSum;
+	}
+	int maxRightBorderSum = 0, rightBorderSum = 0;
+	for(int j = center + 1; j <= right; j++ ){
+		rightBorderSum += a[j];
+		if(rightBorderSum > maxRightBorderSum)
+			maxRightBorderSum = rightBorderSum;
+	}
+	return max3(maxLeftSum, maxRightSum, maxLeftBorderSum + maxRightBorderSum);
+}
+
+int maxSubSum3(const std::vector<int> &a ){
+	return MaxSumRec( a, 0, a.size()-2 );
+}
+
+int maxSubSum4(const std::vector<int> &a){
+	int maxSum = 0, thisSum = 0;
+	int size = (int)a.size()-2;
+	for(int j = 0; j < size; j++){
+		thisSum += a[j];
+		if(thisSum > maxSum){
+		maxSum = thisSum;
+		}
+		else{
+			if(thisSum < 0)
+				thisSum = 0;
+		}
+	}
+	return maxSum;
+}
+
 int main (){
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distribution(std::numeric_limits<int>::min() ,
@@ -58,7 +120,9 @@ int main (){
 
 	std::cout << "MaxSubSum1 = " << maxSubSum1(datos) << std::endl;
 	std::cout << "MaxSubSum2 = " << maxSubSum2(datos) << std::endl;
+	std::cout << "MaxSubSum3 = " << maxSubSum3(datos) << std::endl;
+	std::cout << "MaxSubSum4 = " << maxSubSum3(datos) << std::endl;
 	std::cout << "datos.size() = " << datos.size()-1 << std::endl;
-	std::cout << "Max Data sise = " << Max_Data_Size << " is " << datos.at(datos.size()-2) << std::endl;
+	std::cout << "Max Data sise - 2 = " << Max_Data_Size << " is " << datos.at(datos.size()-2) << std::endl;
 	return 0;
 }
