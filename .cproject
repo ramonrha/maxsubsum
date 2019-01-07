@@ -9,6 +9,8 @@
                 				
                 <macros>
                     					
+                    <stringMacro name="ncurses" type="VALUE_TEXT" value="-lncurses"/>
+                    					
                     <stringMacro name="pg" type="VALUE_TEXT" value="-pg"/>
                     				
                 </macros>
@@ -110,6 +112,8 @@
             <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cross.exe.release.1858067868" moduleId="org.eclipse.cdt.core.settings" name="Release">
                 				
                 <macros>
+                    					
+                    <stringMacro name="ncurses" type="VALUE_TEXT" value="-lncurses"/>
                     					
                     <stringMacro name="pg" type="VALUE_TEXT" value="-pg"/>
                     				
@@ -258,5 +262,7 @@
         </configuration>
         	
     </storageModule>
+    	
+    <storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
     
 </cproject>
